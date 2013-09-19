@@ -28,6 +28,8 @@ public class MainActivity extends BaseGameActivity { //glowna aktywnosc
     public int h = 4;
     public int ID = 0;
     private Back back;
+    public Save sav;
+    public Hero hero;
 
     public Font mFont; //czcionka do pisania na ekranie
     public Camera mCamera ;//uchwyt do kamery
@@ -62,6 +64,8 @@ public class MainActivity extends BaseGameActivity { //glowna aktywnosc
             new RatioResolutionPolicy(w, h), mCamera); //to jest jedna linia! 
         
         back = new Back();
+        hero = new Hero(sav);
+        
         silnik.getAudioOptions().setNeedsMusic(true);
         silnik.getAudioOptions().setNeedsSound(true);
         
