@@ -14,8 +14,7 @@ public class Hero
 	Hero(Save s)
 	{
 		sav=s;
-		load();
-		
+		load();	
 	}
 	
 	void load()
