@@ -87,7 +87,7 @@ public class Encyklopedia extends Scene implements IScrollDetectorListener, IOnS
 	   float przerwa = 1.5f;// >1
 	   for(int i = 0 ;i<4;i++)
 	   {
-		   tex_icons.setCurrentTileIndex(i);
+		   
 		   func[i] = new ButtonSprite(0,0,tex_icons.getTextureRegion(i),act.getVertexBufferObjectManager())
 		   {
 			   	@Override
@@ -122,16 +122,16 @@ public class Encyklopedia extends Scene implements IScrollDetectorListener, IOnS
    {
 	   back = new Sprite(0,0,new stb("Encyklopedia/back_button",256,256).T,act.getVertexBufferObjectManager());//TODO manager scen
 	   back.setScaleCenter(0, 0);
-	   back.setScale(w/16/back.getWidth());
+	   back.setScale(w/10/back.getWidth());
 	   back.setPosition(w-back.getWidthScaled(), 0);
-	   attachChild(back);
+	   //attachChild(back);
    }
    
    void foto_description()
    {
 	   foto = new Sprite(0,0,new stb("Encyklopedia/blank_foto",128,128).T,act.getVertexBufferObjectManager());
 	   foto.setScaleCenter(0, 0);
-	   foto.setScale(w/6/foto.getWidth());
+	   foto.setScale(w/8/foto.getWidth());
 	   foto.setPosition(0,LISTA.dolna_krecha);
 	   attachChild(foto);
 	   
@@ -252,8 +252,6 @@ public class Encyklopedia extends Scene implements IScrollDetectorListener, IOnS
 	   {
 		   title.setText(tytul);
 		   description.setText(opis);
-		   System.out.println(indeks);
-		   System.out.println(tytul);
 		   title.setScaleCenter(0, 0);
 		   title.setScale(foto.getHeightScaled()/2/title.getHeight());
 		   title.setPosition(foto.getX()+foto.getWidthScaled(), foto.getY());
@@ -265,7 +263,7 @@ public class Encyklopedia extends Scene implements IScrollDetectorListener, IOnS
 		   detachChild(foto);
 		   foto = new Sprite(0,0,btn.getTextureRegion(),act.getVertexBufferObjectManager());
 		   foto.setScaleCenter(0, 0);
-		   foto.setScale(w/6/foto.getWidth());
+		   foto.setScale(w/8/foto.getWidth());
 		   foto.setPosition(0,LISTA.dolna_krecha);
 		   attachChild(foto);
 	   }
@@ -316,14 +314,5 @@ public void onClick(ClickDetector pClickDetector, int pPointerID,
 
 	
 }
-   
-   
-   
-   
-   
-   
-   
-   
-   
-   
+  
 }
