@@ -26,6 +26,8 @@ public class MainActivity extends BaseGameActivity { //glowna aktywnosc
  
     public int w = 2;
     public int h = 4;
+    public int ID = 0;
+    private Back back;
 
     public Font mFont; //czcionka do pisania na ekranie
     public Camera mCamera ;//uchwyt do kamery
@@ -38,9 +40,13 @@ public class MainActivity extends BaseGameActivity { //glowna aktywnosc
     boolean GRun = false;
     boolean TimerRun = false;
 
+	
+    @Override
+    public void onBackPressed()
+    {
+    	back.BackF(ID);
+    }
     
-    
-
 	@Override
     public EngineOptions onCreateEngineOptions() {
      

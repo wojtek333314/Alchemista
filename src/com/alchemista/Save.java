@@ -16,6 +16,8 @@ public class Save {
 		
 		preferences = act.getSharedPreferences(prename, Context.MODE_PRIVATE);
 		preferencesEditor = preferences.edit();	
+		
+		if(getData("first").equals("null"))FirstPlay();
 	}
 	
 	void putData(String data,String key){ //wklada dane pod podany klucz
@@ -53,10 +55,12 @@ public class Save {
 	 * @firstplay Jezeli !="null" wtedy gra uruchomiona co najmniej drugi raz 
 	 * 
 	 **/
-	void FirstGameDeclare(String name,int plec)
+	void FirstPlay()
 	{
+		putData("asad", "first");
 		
-
+		putData("1000", "sav_money");
+		putData("1", "sav_lvl");
 	}
 	
 	

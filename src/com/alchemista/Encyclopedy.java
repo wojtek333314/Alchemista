@@ -49,6 +49,7 @@ public class Encyclopedy extends Scene implements IScrollDetectorListener, IOnSc
 	   act = MainActivity.getSharedInstance();
 	   w   = act.w;
 	   h   = act.h;
+	   act.ID = 3;
 	   
 	   //tlo
 	   SpriteBackground tlo = new SpriteBackground(0,w,h,new Sprite(0,0,w,h,new stb("Encyklopedia/tlo",1024,512,1222).T,act.getVertexBufferObjectManager()));
