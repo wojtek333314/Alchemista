@@ -10,7 +10,6 @@ import org.andengine.opengl.texture.region.TextureRegion;
 public class Menu extends Scene
 {
 	MainActivity act;
-	Save sav;
 	
 	int w,
 		h;
@@ -39,7 +38,6 @@ public class Menu extends Scene
 	Menu()
 	{
 		act = MainActivity.getSharedInstance();
-		sav = new Save();
 		w = act.w;
 		h = act.h;
 		act.ID = 2;
@@ -60,8 +58,8 @@ public class Menu extends Scene
 		
 		example_music = new SFX("Menu/music", false).music;
 		
-		grafika();
 		sound();
+		grafika();
 	}
 	
 	int nasluch_petli_s_tab(Sprite t)
@@ -106,6 +104,7 @@ public class Menu extends Scene
 							
 						case 2:
 							act.setCurrentScene(new Encyclopedy());
+							
 							System.out.println("Przechodze w ENCYKLOPEDIA");
 							break;
 						}
@@ -132,7 +131,7 @@ public class Menu extends Scene
 		s_coin.setHeight(0.1f * h);
 		s_coin.setPosition(0, 0);
 		
-		text_money = new Text(s_coin.getWidth() + 0.01f * w, 0, act.mFont, sav.getData("sav_money"), act.getVertexBufferObjectManager());
+		text_money = new Text(s_coin.getWidth() + 0.01f * w, 0, act.mFont, act.sav.getData("money"), act.getVertexBufferObjectManager());
 		text_money.setColor(0, 0, 0);
 		text_money.setHeight(0.1f * h);
 		
@@ -144,7 +143,7 @@ public class Menu extends Scene
 		s_lvl.setHeight(0.1f * h);
 		s_lvl.setPosition(text_money.getX() + text_money.getWidth() + 0.01f * w, 0);
 		
-		text_lvl = new Text(s_lvl.getX() + s_lvl.getWidth() + 0.01f * w, 0, act.mFont, sav.getData("sav_lvl"), act.getVertexBufferObjectManager());
+		text_lvl = new Text(s_lvl.getX() + s_lvl.getWidth() + 0.01f * w, 0, act.mFont, act.sav.getData("lvl"), act.getVertexBufferObjectManager());
 		text_lvl.setColor(0, 0, 0);
 		text_lvl.setHeight(0.1f * h);
 		

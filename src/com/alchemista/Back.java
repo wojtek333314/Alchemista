@@ -21,9 +21,9 @@ public class Back
 			act.finish();
 			break;
 		case 2:
+			
 			act.setCurrentScene(new Menu());
 			break;
-		
 		}
 	}
 }
