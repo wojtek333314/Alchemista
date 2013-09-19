@@ -59,8 +59,11 @@ public class Save {
 	{
 		putData("asad", "first");
 		
-		putData("1000", "sav_money");
-		putData("1", "sav_lvl");
+		putData("1000", "money");
+		putData("1", "lvl");
+		putData("Nick","nick");
+		putData("0","exp");
+		putData("email","mail");
 	}
 	
 	
