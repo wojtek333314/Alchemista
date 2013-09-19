@@ -56,7 +56,7 @@ public class Menu extends Scene
 		t_tab[1] = new stb("Menu/tab1", 512, 1024).T;
 		t_tab[2] = new stb("Menu/tab2", 512, 1024).T;
 		
-		example_music = new SFX("Menu/music", false).music;
+		example_music = act.SFX.background.music;
 		
 		sound();
 		grafika();
@@ -103,7 +103,7 @@ public class Menu extends Scene
 							break;
 							
 						case 2:
-							act.setCurrentScene(new Encyclopedy());
+							act.setCurrentScene(new Encyklopedia());
 							
 							System.out.println("Przechodze w ENCYKLOPEDIA");
 							break;
@@ -149,7 +149,8 @@ public class Menu extends Scene
 		
 		attachChild(s_lvl);
 		attachChild(text_lvl);
-		
+		registerTouchArea(s_speaker);
+		attachChild(s_speaker);
 		//TODO DODANIE PRZYCISKU LIKE I SHARE (facebook)
 	}
 	
@@ -173,7 +174,18 @@ public class Menu extends Scene
 					else
 						sounds_permission = true;
 					
-					sound();
+					if(sounds_permission)
+					{
+						s_speaker.setSprite(t_speaker[1]);
+						example_music.play();
+					}
+					else
+					{
+						s_speaker.setSprite(t_speaker[0]);
+						example_music.pause();
+					}
+
+					
 					return true;
 				}
 				return false;
@@ -183,9 +195,6 @@ public class Menu extends Scene
 		s_speaker.setHeight(0.1f * h);
 		s_speaker.setPosition(w - s_speaker.getWidth(), 0);	
 		
-		registerTouchArea(s_speaker);
-		attachChild(s_speaker);
-		
 		if(sounds_permission)
 		{
 			example_music.play();
@@ -194,5 +203,7 @@ public class Menu extends Scene
 		{
 			example_music.pause();
 		}
+		
+		
 	}
 }

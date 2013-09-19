@@ -24,13 +24,13 @@ import android.util.DisplayMetrics;
 public class MainActivity extends BaseGameActivity { //glowna aktywnosc
 
  
-    public int w = 2;
-    public int h = 4;
-    public int ID = 0;
-    private Back back;
-    public Save sav;
-    public Hero hero;
-
+    public int 	w = 2,
+               	h = 4,
+             	ID = 0;
+    private Back 		back;
+    public Save 		sav;
+    public Hero 		hero;
+    public SFXManager 	SFX;
     public Font mFont; //czcionka do pisania na ekranie
     public Camera mCamera ;//uchwyt do kamery
     public Scene mCurrentScene; //uchwyt do obecnie aktywnej sceny
@@ -63,12 +63,13 @@ public class MainActivity extends BaseGameActivity { //glowna aktywnosc
         EngineOptions silnik =  new EngineOptions(true, ScreenOrientation.LANDSCAPE_FIXED,//+down
             new RatioResolutionPolicy(w, h), mCamera); //to jest jedna linia! 
         
+        silnik.getAudioOptions().setNeedsMusic(true);
+        silnik.getAudioOptions().setNeedsSound(true);
+        
         sav  = new Save();
         back = new Back();
         hero = new Hero(sav);
-        
-        silnik.getAudioOptions().setNeedsMusic(true);
-        silnik.getAudioOptions().setNeedsSound(true);
+
         
         return silnik;   
     }
@@ -87,6 +88,8 @@ public class MainActivity extends BaseGameActivity { //glowna aktywnosc
     	  BitmapTextureAtlasTextureRegionFactory.setAssetBasePath("gfx/");//ustawiam sciezke dla plikow grafiki Assets/gfx/
     	  SoundFactory.setAssetBasePath("sfx/");
     	  MusicFactory.setAssetBasePath("sfx/");
+          SFX  = new SFXManager();
+
 
     }
 

@@ -19,7 +19,7 @@ import org.andengine.util.HorizontalAlign;
 
 import android.view.MotionEvent;
 
-public class Encyclopedy extends Scene implements IScrollDetectorListener, IOnSceneTouchListener, IClickDetectorListener
+public class Encyklopedia extends Scene implements IScrollDetectorListener, IOnSceneTouchListener, IClickDetectorListener
 {
    MainActivity		act;
    int				w,h;
@@ -44,7 +44,7 @@ public class Encyclopedy extends Scene implements IScrollDetectorListener, IOnSc
    ClickDetector			mClickDetector;
    
    
-   Encyclopedy()
+   Encyklopedia()
    {
 	   act = MainActivity.getSharedInstance();
 	   w   = act.w;
