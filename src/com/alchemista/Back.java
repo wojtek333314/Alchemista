@@ -23,6 +23,9 @@ public class Back
 		case 2:
 			act.setCurrentScene(new Menu());
 			break;
+		case 3:
+			act.setCurrentScene(new Menu());
+			break;
 		}
 	}
 }

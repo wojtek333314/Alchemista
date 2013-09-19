@@ -61,7 +61,7 @@ public class MainActivity extends BaseGameActivity { //glowna aktywnosc
         EngineOptions silnik =  new EngineOptions(true, ScreenOrientation.LANDSCAPE_FIXED,//+down
             new RatioResolutionPolicy(w, h), mCamera); //to jest jedna linia! 
         
-        
+        back = new Back();
         silnik.getAudioOptions().setNeedsMusic(true);
         silnik.getAudioOptions().setNeedsSound(true);
         
