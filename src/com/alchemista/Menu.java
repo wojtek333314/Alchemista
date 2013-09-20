@@ -78,7 +78,6 @@ public class Menu extends Scene
 		s_background.setWidth(w);
 		s_background.setHeight(h);
 		
-		registerTouchArea(s_background);
 		attachChild(s_background);
 		
 		for(int i = 0; i < 3; i++)
@@ -98,7 +97,7 @@ public class Menu extends Scene
 							break;
 							
 						case 1:
-							//TODO przejscie w scene ALCHEMIA
+							act.setCurrentScene(new Alchemy());
 							System.out.println("Przechodze w ALCHEMIA");
 							break;
 							
