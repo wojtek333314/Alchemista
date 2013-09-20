@@ -27,7 +27,7 @@ public class MainActivity extends BaseGameActivity { //glowna aktywnosc
     public int 	w = 2,
                	h = 4,
              	ID = 0;
-    private Back 		back;
+    public Back 		back;
     public Save 		sav;
     public Hero 		hero;
     public SFXManager 	SFX;
@@ -65,12 +65,7 @@ public class MainActivity extends BaseGameActivity { //glowna aktywnosc
         
         silnik.getAudioOptions().setNeedsMusic(true);
         silnik.getAudioOptions().setNeedsSound(true);
-        
-        sav  = new Save();
-        back = new Back();
-        hero = new Hero(sav);
 
-        
         return silnik;   
     }
     
@@ -127,7 +122,7 @@ public class MainActivity extends BaseGameActivity { //glowna aktywnosc
 	@Override
 	public void onCreateScene(OnCreateSceneCallback pOnCreateSceneCallback) {
 
-		this.setCurrentScene(new Menu());
+		this.setCurrentScene(new BrotherhoodIntroScene());
 		 pOnCreateSceneCallback.onCreateSceneFinished(mCurrentScene);
 	}
 

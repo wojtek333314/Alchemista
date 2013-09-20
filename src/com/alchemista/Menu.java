@@ -40,7 +40,7 @@ public class Menu extends Scene
 		act = MainActivity.getSharedInstance();
 		w = act.w;
 		h = act.h;
-		act.ID = 2;
+		act.ID = 1;
 		
 		t_tab = new TextureRegion[3];
 		t_speaker = new TextureRegion[2];
