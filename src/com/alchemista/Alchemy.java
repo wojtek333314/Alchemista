@@ -14,7 +14,8 @@ public class Alchemy extends Scene
 	MainActivity act;
 	
 	int w,	
-		h;
+		h,
+		s_shadow_clicked_index = 0;
 	
 	TextureRegion t_shop,
 				  t_free,
@@ -30,7 +31,7 @@ public class Alchemy extends Scene
 				 s_get,
 				 s_paper;
 	
-	ButtonSprite[] s_shadow;				
+	Sprite[] s_shadow;//musi byc spritem bo .setSprite() nie dziala dla ButtonSpritów				
 	//TODO £adowanie misji i opisów
 	
 	Alchemy()
@@ -48,7 +49,7 @@ public class Alchemy extends Scene
 		t_shadow1 = new stb("Alchemy/shadow1", 128, 32).T;
 		t_paper = new stb("Alchemy/paper", 512, 512).T;
 		
-		s_shadow = new ButtonSprite[4];
+		s_shadow = new Sprite[4];
 		
 		SpriteBackground s_background = new SpriteBackground(0,w,h,new Sprite(0,0,w,h,new stb("Alchemy/background",1024,1024,1222).T,act.getVertexBufferObjectManager()));
 		   this.setBackground(s_background);
@@ -61,27 +62,21 @@ public class Alchemy extends Scene
 				if(pEvent.isActionDown())
 				{
 					s_paper.setPosition(w, h);
-					System.out.println("kartka");
+					registerShadowTouchAreas();
 					return true;
 				}
 				return false;
 			}
 		};
-		s_paper.setWidth(0.6f * w);
-		s_paper.setHeight(0.6f * w);
-		registerTouchArea(s_paper);
-		attachChild(s_paper);
+		//s_paper.setWidth(0.6f * w); a co jak szerokosc ekranu bedzie w takim stosunku ze wysokosc spritu bedzie wyzsza niz ekranu?(wlasnie tak zadzialalo na moim telefonie)
+		//s_paper.setHeight(0.6f * w);//nie uzalezniaj wysokosci spritu od szerokosci ekranu to nielogiczne
+		s_paper.setScaleCenter(0, 0);
+		s_paper.setScale(h/s_paper.getHeight());
 		   
 		grafika();
 		grafika1();
-		this.setOnAreaTouchTraversalBackToFront();
-		this.setOnSceneTouchListenerBindingOnActionDownEnabled(true);
-		for(int i=0;i<s_shadow.length;i++)
-		{
-			attachChild(s_shadow[i]);
-			registerTouchArea(s_shadow[i]);
-		}
-		
+		registerTouchArea(s_paper);
+		attachChild(s_paper);//musi byc przed wszystkimi spritami
 	}
 	
 	int nasluch_petli_s_shadow(Sprite t)
@@ -157,7 +152,7 @@ public class Alchemy extends Scene
 		
 		registerTouchArea(s_shop);
 		registerTouchArea(s_free);
-		registerTouchArea(s_list);
+		//registerTouchArea(s_list); CO TO KURWA MA BYÆ?! TODO  PO KIEGO TO REJESTROWALES?!
 		registerTouchArea(s_get);
 		
 		attachChild(s_shop);
@@ -170,31 +165,62 @@ public class Alchemy extends Scene
 	{
 		for(int i = 0; i < 4; i++)
 		{
-			s_shadow[i] = new ButtonSprite(w, h, t_shadow0, act.getVertexBufferObjectManager())
+			s_shadow[i] = new Sprite(w, h, t_shadow0, act.getVertexBufferObjectManager())
 			{
 				@Override
 		          public boolean onAreaTouched(TouchEvent pSceneTouchEvent, float pTouchAreaLocalX, float pTouchAreaLocalY)
-			      {System.out.println("lol");
+			      {
 		              if(pSceneTouchEvent.getAction()==MotionEvent.ACTION_DOWN)        	   
 		              { 
-							System.out.println("dada");
-							s_shadow[nasluch_petli_s_shadow(this)].setSprite(t_shadow1);
-							s_paper.setPosition(0.2f * w, h - 0.6f * w / 2);
+							s_shadow[s_shadow_clicked_index].setSprite(t_shadow0);//usuwa zaznaczenie poprzedniego sprite
+							s_shadow[nasluch_petli_s_shadow(this)].setSprite(t_shadow1);//zaznacza sprite 
+							s_shadow_clicked_index = nasluch_petli_s_shadow(this);//ustawia index ktory sprite jest zaznaczony
+							s_paper.setPosition(w/2-s_paper.getWidthScaled()/2,h/2-s_paper.getHeightScaled()/2);//s_paper.setPosition(0.2f * w, h - 0.6f * w / 2);  a nie mozna po prostu wysrodkowac? PS: h - 0.6f * w /2 nie umieszczaj dla Y uzaleznienia od szerokosci.bezsens                                        
+							unregisterShadowTouchAreas();//odrejestrowuje wszystkie touche listy bo jak klikniesz w kartke to tez je rejestruje jako klikniecia
 		              }
-		           return false;
+		           return true;
 			      }
 			};
-			s_shadow[i].setWidth(s_list.getWidth() - 0.2f * w);
+			s_shadow[i].setWidth(s_list.getWidth() *0.9f ); //s_shadow[i].setWidth(s_list.getWidth() - 0.2f * w);  CO TO JEST? UTRUDNIASZ PROSTE RZECZY co ma szer.ekranu do szer listy?
 			s_shadow[i].setHeight(s_list.getHeight()/4 - 0.02f * h);
 			
-			if(i == 0)
+			/*if(i == 0)
 				s_shadow[i].setPosition(s_list.getX() + 0.03f * h, s_list.getY() + 0.01f * h);
 			
 			if(i > 0)
 				s_shadow[i].setPosition(s_shadow[i - 1].getX(), s_shadow[i - 1].getY() + 0.01f * h + s_shadow[i - 1].getHeight());
+				
+			W£¥CZ MYŒLENIE ZANIM NAPISZESZ TAKI BEZSENS robisz na czuja wszystko tylko masa testowania a jak sie spierdoli to potem szukaj w tym gaszczu...
+			*/
+			float odstep = s_shadow[i].getHeightScaled()*0.2f;// odstep miedzy kazdym zleceniem o jedn¹ pi¹t¹ wysokosci tabelki
+			s_shadow[i].setPosition(s_list.getX()+s_list.getWidthScaled()/2 - s_shadow[i].getWidthScaled()/2,(s_list.getY()* 1.05f * i+1)+ s_shadow[i].getHeightScaled()+odstep);
 			
-			
+			attachChild(s_shadow[i]);
+			registerTouchArea(s_shadow[i]);
 			
 		}	
 	}
+	
+	
+	private void unregisterShadowTouchAreas()
+	{
+		for(int i=0;i<s_shadow.length;i++)
+			unregisterTouchArea(s_shadow[i]);
+	}
+	
+	private void registerShadowTouchAreas()
+	{
+		for(int i=0;i<s_shadow.length;i++)
+			registerTouchArea(s_shadow[i]);
+	}
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 }
