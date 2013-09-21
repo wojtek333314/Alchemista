@@ -61,6 +61,7 @@ public class Alchemy extends Scene
 				if(pEvent.isActionDown())
 				{
 					s_paper.setPosition(w, h);
+					System.out.println("kartka");
 					return true;
 				}
 				return false;

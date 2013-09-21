@@ -57,7 +57,7 @@ public class MainActivity extends BaseGameActivity { //glowna aktywnosc
     	w = displayMetrics.widthPixels;
     	h = displayMetrics.heightPixels;
 
-        
+
         mCamera = new Camera(0, 0, w, h);
         instance = this;
         EngineOptions silnik =  new EngineOptions(true, ScreenOrientation.LANDSCAPE_FIXED,//+down
@@ -83,7 +83,11 @@ public class MainActivity extends BaseGameActivity { //glowna aktywnosc
     	  BitmapTextureAtlasTextureRegionFactory.setAssetBasePath("gfx/");//ustawiam sciezke dla plikow grafiki Assets/gfx/
     	  SoundFactory.setAssetBasePath("sfx/");
     	  MusicFactory.setAssetBasePath("sfx/");
-          SFX  = new SFXManager();
+          sav = new Save();
+          SFX = new SFXManager();
+          back = new Back();
+          hero = new Hero(sav);
+          
 
 
     }
@@ -122,7 +126,7 @@ public class MainActivity extends BaseGameActivity { //glowna aktywnosc
 	@Override
 	public void onCreateScene(OnCreateSceneCallback pOnCreateSceneCallback) {
 
-		this.setCurrentScene(new BrotherhoodIntroScene());
+		this.setCurrentScene(new Menu());
 		 pOnCreateSceneCallback.onCreateSceneFinished(mCurrentScene);
 	}
 
