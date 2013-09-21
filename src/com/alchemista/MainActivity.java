@@ -143,7 +143,7 @@ public class MainActivity extends BaseGameActivity { //glowna aktywnosc
 
 
     public void setCurrentScene(Scene scene) {//zmienia aktywn¹ scenê
-  	  System.gc();
+  	  //System.gc();
 	  this.mCurrentScene = scene;
       getEngine().setScene(mCurrentScene);
   }

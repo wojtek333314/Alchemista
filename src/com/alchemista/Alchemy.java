@@ -74,6 +74,13 @@ public class Alchemy extends Scene
 		   
 		grafika();
 		grafika1();
+		this.setOnAreaTouchTraversalBackToFront();
+		this.setOnSceneTouchListenerBindingOnActionDownEnabled(true);
+		for(int i=0;i<s_shadow.length;i++)
+		{
+			attachChild(s_shadow[i]);
+			registerTouchArea(s_shadow[i]);
+		}
 		
 	}
 	
@@ -186,8 +193,8 @@ public class Alchemy extends Scene
 			if(i > 0)
 				s_shadow[i].setPosition(s_shadow[i - 1].getX(), s_shadow[i - 1].getY() + 0.01f * h + s_shadow[i - 1].getHeight());
 			
-			registerTouchArea(s_shadow[i]);
-			attachChild(s_shadow[i]);
+			
+			
 		}	
 	}
 }
