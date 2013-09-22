@@ -4,6 +4,7 @@ import org.andengine.entity.scene.Scene;
 import org.andengine.entity.scene.background.SpriteBackground;
 import org.andengine.entity.sprite.ButtonSprite;
 import org.andengine.entity.sprite.Sprite;
+import org.andengine.entity.text.Text;
 import org.andengine.input.touch.TouchEvent;
 import org.andengine.opengl.texture.region.TextureRegion;
 
@@ -12,6 +13,8 @@ import android.view.MotionEvent;
 public class Alchemy extends Scene
 {
 	MainActivity act;
+	Hero hero;
+	Mission mis;
 	
 	int w,	
 		h,
@@ -31,7 +34,10 @@ public class Alchemy extends Scene
 				 s_get,
 				 s_paper;
 	
-	Sprite[] s_shadow;//musi byc spritem bo .setSprite() nie dziala dla ButtonSpritów				
+	Sprite[] s_shadow;//musi byc spritem bo .setSprite() nie dziala dla ButtonSpritów		
+	
+	Text[] text_mission_name;
+	Text text_mission_contents;
 	//TODO £adowanie misji i opisów
 	
 	Alchemy()
@@ -40,6 +46,8 @@ public class Alchemy extends Scene
 		act.ID = 2;
 		w = act.w;
 		h = act.h;
+		mis = new Mission();
+		hero = new Hero(act.sav);
 		
 		t_shop = new stb("Alchemy/shop", 256, 256).T;
 		t_free = new stb("Alchemy/free", 256, 256).T;
@@ -50,6 +58,7 @@ public class Alchemy extends Scene
 		t_paper = new stb("Alchemy/paper", 512, 512).T;
 		
 		s_shadow = new Sprite[4];
+		text_mission_name = new Text[4];
 		
 		SpriteBackground s_background = new SpriteBackground(0,w,h,new Sprite(0,0,w,h,new stb("Alchemy/background",1024,1024,1222).T,act.getVertexBufferObjectManager()));
 		   this.setBackground(s_background);
@@ -62,6 +71,7 @@ public class Alchemy extends Scene
 				if(pEvent.isActionDown())
 				{
 					s_paper.setPosition(w, h);
+					text_mission_contents.setPosition(w, h);
 					registerShadowTouchAreas();
 					return true;
 				}
@@ -69,12 +79,11 @@ public class Alchemy extends Scene
 			}
 		};
 		//s_paper.setWidth(0.6f * w); a co jak szerokosc ekranu bedzie w takim stosunku ze wysokosc spritu bedzie wyzsza niz ekranu?(wlasnie tak zadzialalo na moim telefonie)
-		//s_paper.setHeight(0.6f * w);//nie uzalezniaj wysokosci spritu od szerokosci ekranu to nielogiczne
+		//s_paper.setHeight(0.6f * w);//nie uzalezniaj wysokosci spritu od szerokosci ekranu to nielogiczne 
 		s_paper.setScaleCenter(0, 0);
 		s_paper.setScale(h/s_paper.getHeight());
 		   
 		grafika();
-		grafika1();
 		registerTouchArea(s_paper);
 		attachChild(s_paper);//musi byc przed wszystkimi spritami
 	}
@@ -158,10 +167,7 @@ public class Alchemy extends Scene
 		attachChild(s_free);
 		attachChild(s_list);
 		attachChild(s_get);
-	}
-	
-	void grafika1()
-	{
+		
 		for(int i = 0; i < 4; i++)
 		{
 			s_shadow[i] = new Sprite(w, h, t_shadow0, act.getVertexBufferObjectManager())
@@ -175,6 +181,7 @@ public class Alchemy extends Scene
 							s_shadow[nasluch_petli_s_shadow(this)].setSprite(t_shadow1);//zaznacza sprite 
 							s_shadow_clicked_index = nasluch_petli_s_shadow(this);//ustawia index ktory sprite jest zaznaczony
 							s_paper.setPosition(w/2-s_paper.getWidthScaled()/2,h/2-s_paper.getHeightScaled()/2);//s_paper.setPosition(0.2f * w, h - 0.6f * w / 2);  a nie mozna po prostu wysrodkowac? PS: h - 0.6f * w /2 nie umieszczaj dla Y uzaleznienia od szerokosci.bezsens                                        
+							mission_contents(nasluch_petli_s_shadow(this));
 							unregisterShadowTouchAreas();//odrejestrowuje wszystkie touche listy bo jak klikniesz w kartke to tez je rejestruje jako klikniecia
 		              }
 		           return true;
@@ -184,7 +191,7 @@ public class Alchemy extends Scene
 			s_shadow[i].setHeight(s_list.getHeight()/4 - 0.02f * h);
 			
 			/*if(i == 0)
-				s_shadow[i].setPosition(s_list.getX() + 0.03f * h, s_list.getY() + 0.01f * h);
+				s_shadow[i].setPosition(s_list.getX() + 0.03f * h, s_list.getY() + 0.03f * h);
 			
 			if(i > 0)
 				s_shadow[i].setPosition(s_shadow[i - 1].getX(), s_shadow[i - 1].getY() + 0.01f * h + s_shadow[i - 1].getHeight());
@@ -197,9 +204,31 @@ public class Alchemy extends Scene
 			attachChild(s_shadow[i]);
 			registerTouchArea(s_shadow[i]);
 			
+			mission_name(i);
 		}	
+	}	
+	
+	
+	void mission_name(int i)
+	{
+		text_mission_name[i] = new Text(w, h, act.mFont, "Nazwa misji", 1024, act.getVertexBufferObjectManager());
+		text_mission_name[i].setColor(1.0f, 1.0f, 1.0f);
+		text_mission_name[i].setPosition(s_shadow[i].getX() + 0.01f * w, s_shadow[i].getY() + s_shadow[i].getHeight() / 2 - text_mission_name[i].getHeight() / 2);
+		
+		if(text_mission_name[i].getWidth() > s_shadow[i].getWidth() - 0.01f * w)
+		{
+			text_mission_name[i].setScaleCenter(0, 0);
+			text_mission_name[i].setScale(s_shadow[i].getWidth() - 0.01f * w);
+		}
+		attachChild(text_mission_name[i]);	
 	}
 	
+	void mission_contents(int mission_number)
+	{
+		text_mission_contents = new Text(s_paper.getX(), s_paper.getY(), act.mFont,"Jakiœ tekst misji", 1024, act.getVertexBufferObjectManager());
+		text_mission_contents.setColor(0.0f, 0.0f, 0.0f);
+		attachChild(text_mission_contents);
+	}
 	
 	private void unregisterShadowTouchAreas()
 	{
@@ -211,15 +240,5 @@ public class Alchemy extends Scene
 	{
 		for(int i=0;i<s_shadow.length;i++)
 			registerTouchArea(s_shadow[i]);
-	}
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
+	}	
 }

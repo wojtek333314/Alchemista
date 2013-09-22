@@ -1,14 +1,7 @@
 Nazwa Misji 1
-//	Tekst misji 1. ( 5 linijek)
-//
-//
-//
-//
+	dada
 Little problem.
-	Hey mr Alchemic! I've little problem, my dick don't stand. Could You make me some Viagra potion? It's important for my black wife(white wife like dildo). I care about discretion. For 2 potions I give you 50$. We have a deal?
-Barack "Cock" Obama
-
-
+	Hey mr Alchemic! I've little problem, my dick don't stand. Could You make me some Viagra potion? It's important for my black wife(white wife like dildo). I care about discretion. For 2 potions I give you 50$. We have a deal? Barack "Cock" Obama
 Nazwa Misji 3
 	Tekst Misji 3
 Nazwa Misji 4
@@ -35,33 +28,3 @@ Nazwa Misji 14
 	Tekst Misji 14
 Nazwa Misji 15
 	Tekst Misji 15
-Nazwa Misji 16
-	Tekst Misji 16
-Nazwa Misji 17
-	Tekst Misji 17
-Nazwa Misji 18
-	Tekst Misji 18
-Nazwa Misji 19
-	Tekst Misji 19
-Nazwa Misji 20
-	Tekst Misji 20
-Nazwa Misji 21
-	Tekst Misji 21
-Nazwa Misji 22
-	Tekst Misji 22
-Nazwa Misji 23
-	Tekst Misji 23
-Nazwa Misji 24
-	Tekst Misji 24
-Nazwa Misji 25
-	Tekst Misji 25
-Nazwa Misji 26
-	Tekst Misji 26
-Nazwa Misji 27
-	Tekst Misji 27
-Nazwa Misji 28
-	Nazwa Misji 28
-Nazwa Misji 29
-	Nazwa Misji 29
-Nazwa Misji 30
-	Nazwa Misji 30

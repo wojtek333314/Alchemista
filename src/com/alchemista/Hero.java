@@ -5,6 +5,7 @@ public class Hero
 
 	String	nick,
 			mail;
+	
 	int		cash,
 			lvl,
 			exp;
@@ -13,7 +14,8 @@ public class Hero
 	
 	Hero(Save s)
 	{
-		sav=s;
+		sav = s;
+
 		load();	
 	}
 	
