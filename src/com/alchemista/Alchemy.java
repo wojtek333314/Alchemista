@@ -98,8 +98,7 @@ public class Alchemy extends Scene
 			{
 				if(pEvent.isActionDown())
 				{
-					//TODO act.setCurrentScene(new Shop());
-					System.out.println("trolll");
+					act.setCurrentScene(new Shop(0));
 					return true;
 				}
 				return false;

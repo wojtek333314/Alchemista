@@ -195,6 +195,7 @@ public class Encyklopedia extends Scene implements IScrollDetectorListener, IOnS
 		   
 		   for(int i=0;i<items.length;i++)
 		   {
+		
 			   detachChild(items[i].btn);
 			   unregisterTouchArea(items[i].btn);
 		   }
